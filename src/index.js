@@ -4,7 +4,7 @@ import ApolloClient, { gql } from "apollo-boost";
 import { ApolloProvider, Mutation ,Query} from "react-apollo";
 
 const client = new ApolloClient({
-  uri: "http://localhost:1337/graphql"
+  uri: "http://http://47.111.77.29:1337/graphql"
 });
 
 const GET_TODOS = gql`
