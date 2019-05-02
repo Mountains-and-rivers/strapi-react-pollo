@@ -4,7 +4,7 @@ import ApolloClient, { gql } from "apollo-boost";
 import { ApolloProvider, Mutation ,Query} from "react-apollo";
 
 const client = new ApolloClient({
-  uri: "http://47.111.77.29:1337/graphql"
+  uri: "http://localhost:1337/graphql"
 });
 
 const GET_TODOS = gql`
@@ -17,12 +17,14 @@ const GET_TODOS = gql`
 `;
 
 const UPDATE_TODO = gql`
-  mutation updatePostPayload($id: ID!, $type: String!) {
-    updateTodo(id: $id, dianzan: $type) {
-      id
-      dianzan
+ mutation updateTodo($input: updateTodoInput) {
+        updateTodo(input: $input) {
+            todo {
+                id
+                dianzan
+            }
+        }
     }
-  }
 `;
 
 function App() {
@@ -44,9 +46,20 @@ function App() {
                     onSubmit={e => {
                       e.preventDefault();
                       console.log("----------------------print---------------------------")
-                      console.log(dianzan)
+                      console.log( input.value )
                       console.log(id)
-                      updateTodo({ variables: { id, type: input.value } });
+                      updateTodo({
+                        variables: {
+                          input: {
+                            where: {
+                              id: id
+                            },
+                            data: {
+                              dianzan: "qwq"
+                            }
+                          }
+                        }
+                      });
 
                       input.value = "";
                     }}
